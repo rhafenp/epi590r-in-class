@@ -1,6 +1,14 @@
 library(tidyverse)
 library(broom)
 
+#from last step of previous exercise
+eyes_poisson_model <- glm(glasses ~ eyesight_cat + sex_cat,
+													data= nlsy, family= poisson(link="log"))
+
+eyes_poisson_table <- tbl_regression(eyes_poisson_model,
+																		 exponentiate= TRUE,
+																		 tidy_fun= partial(tidy_robust, vcov= "HC1"))
+
 nlsy_cols <- c("glasses", "eyesight", "sleep_wkdy", "sleep_wknd",
 							 "id", "nsibs", "samp", "race_eth", "sex", "region",
 							 "income", "res_1980", "res_2002", "age_bir")
